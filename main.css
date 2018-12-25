@@ -87,4 +87,44 @@ input[type="submit"] {
 	height: 2em;
 }
 
+#channel-data {
+	display: flex;
+	flex-direction: column;
+}
+
+#channel-data p {
+	width: 400px;
+	margin: 0;
+	align-self: center;
+	text-align: justify;
+	padding-bottom: 10px;
+	padding-top: 20px;
+	border-bottom: 1px solid #444444;
+}
+
+#channel-data a {
+	align-self: center;
+	text-decoration: none;
+	font-weight: 500;
+	padding-top: 10px;
+	margin-bottom: 40px;
+}
+
+.collection {
+	list-style: none;
+	padding: 0;
+	width: 400px;
+	align-self: center;
+	justify-self: center;
+}
+
+.collection > * {
+	padding: 12px;
+	margin-left: 0;
+	color: #444444;
+	border: 1px solid #a5a5a5;	
+	border-radius: 3px;
+}
+
+
 
