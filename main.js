@@ -12,7 +12,7 @@ const channelForm = document.getElementById('channel-form');
 const channelInput = document.getElementById('channel-input');
 const videoContainer = document.getElementById('video-container');
 
-const defaultChannel = 'Eyder ACM'
+const defaultChannel = 'Redlettermedia'
 
 
 // Load auth2 library 
@@ -65,7 +65,34 @@ function handleSignoutClick() {
     gapi.auth2.getAuthInstance().signOut();
 }
 
+function showChannelData(data) {
+    const channelData = document.getElementById('channel-data');
+    channelData.innerHTML = data;
+}
+
 // Get Channel from API
 function getChannel(channel) {
-    console.log(channel);
+    gapi.client.youtube.channels.list({
+        part: 'snippet,contentDetails,statistics',
+        forUsername: channel
+    })
+    .then(response => {
+        console.log(response);
+        const channel = response.result.items[0];
+
+        const output = `
+            <ul class="collection">
+                <li class="collection__item">Title: ${channel.snippet.title}</li>
+                <li class="collection__item">ID: ${channel.id}</li>
+                <li class="collection__item">Subscribers: ${channel.statistics.subscriberCount}</li>
+                <li class="collection__item">Views: ${channel.statistics.viewCount}</li>
+                <li class="collection__item">Videos: ${channel.statistics.videoCount}</li>
+            </ul>
+            <p>${channel.snippet.description}</p>
+            <hr>
+            <a class="button--grey" target="_blank" href="https://youtube.com/${channel.snippet.customUrl}">Visit Channel</a>
+        `;
+        showChannelData(output);
+    })
+    .catch(err => alert('No Channel By That Name'));
 }
