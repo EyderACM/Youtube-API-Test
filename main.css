@@ -7,10 +7,6 @@ html {
 	box-sizing: inherit;
 }
 
-.log.buttons, #content {
-	display: none;
-}
-
 body {
 	margin: 0;
 	min-width: 100vw;

@@ -8,6 +8,13 @@
 		<link rel="stylesheet" type="text/css" media="screen" href="main.css" />
 		<link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet">    
 </head>
+
+<style>
+	.hidden {
+		display: none;
+	}
+</style>
+
 <body>
 	<nav>
 		<a href="#" class="brand-logo">Youtube Channel Data</a>
@@ -17,13 +24,13 @@
 		<div class="container">
 			<div class="log">
 				<p>Log in with Google</p>
-				<div class="log-buttons">
+				<div class="log-buttons hidden">
 					<button class="btn__signIn" id="authorize-button">LOG IN</button>
 					<button class="btn__signOut" id="signout-button">LOG OUT</button>
 				</div>				
 			</div>			
 			<br>
-			<div id="content">
+			<div id="content" class="content hidden">
 				<form action="channel-form">
 					<input type="text" placeholder="Enter Channel Name" id="channel-input">
 					<input type="submit" value="Get Channel Data" class="btn__submit">
