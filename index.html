@@ -6,8 +6,7 @@
     <title>Youtube API test</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" type="text/css" media="screen" href="main.css" />
-		<link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet">
-    <script src="main.js"></script>
+		<link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet">    
 </head>
 <body>
 	<nav>
@@ -18,21 +17,26 @@
 		<div class="container">
 			<div class="log">
 				<p>Log in with Google</p>
-				<div class="log buttons">
-					<button class="btn__signIn">LOG IN</button>
-					<button class="btn__signOut">LOG OUT</button>
+				<div class="log-buttons">
+					<button class="btn__signIn" id="authorize-button">LOG IN</button>
+					<button class="btn__signOut" id="signout-button">LOG OUT</button>
 				</div>				
 			</div>			
 			<br>
-			<div class="content">
+			<div id="content">
 				<form action="channel-form">
 					<input type="text" placeholder="Enter Channel Name" id="channel-input">
 					<input type="submit" value="Get Channel Data" class="btn__submit">
 				</form>
+				<div id="video-container"></div>
 			</div>
 		</div>
 	</section>
 
-	
+<script async defer src="https://apis.google.com/js/api.js"
+onload="this.onload=function(){};handleClientLoad()"
+onreadystatechange="if (this.readyState === 'complete') this.onload()">
+</script>
+<script src="main.js"></script>
 </body>
 </html>
