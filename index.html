@@ -5,12 +5,34 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Youtube API test</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+		<link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+		<link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet">
     <script src="main.js"></script>
 </head>
 <body>
+	<nav>
+		<a href="#" class="brand-logo">Youtube Channel Data</a>
+	</nav>
+	<br>
+	<section>
+		<div class="container">
+			<div class="log">
+				<p>Log in with Google</p>
+				<div class="log buttons">
+					<button class="btn__signIn">LOG IN</button>
+					<button class="btn__signOut">LOG OUT</button>
+				</div>				
+			</div>			
+			<br>
+			<div class="content">
+				<form action="channel-form">
+					<input type="text" placeholder="Enter Channel Name" id="channel-input">
+					<input type="submit" value="Get Channel Data" class="btn__submit">
+				</form>
+			</div>
+		</div>
+	</section>
 
-    <h1>Test</h1>
-    
+	
 </body>
 </html>
