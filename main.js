@@ -124,6 +124,7 @@ function requestVideoPlaylists(playlistId) {
 
     request.execute(response => {        
         const playListItems = response.items;
+        videoContainer.innerHTML = "";
         if(playListItems) {            
             let output = `<h4 class="align-center">Latest Videos</h4><div class="videos">`;
             // Loop through videos and append output            
