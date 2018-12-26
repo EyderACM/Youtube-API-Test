@@ -14,6 +14,14 @@ const videoContainer = document.getElementById('video-container');
 
 const defaultChannel = 'Redlettermedia'
 
+//Form Submit and change channel
+channelForm.addEventListener('submit', e => {
+    e.preventDefault();
+
+    const channel = channelInput.value;
+    getChannel(channel);
+})
+
 
 // Load auth2 library 
 function handleClientLoad() {
@@ -76,23 +84,62 @@ function getChannel(channel) {
         part: 'snippet,contentDetails,statistics',
         forUsername: channel
     })
-    .then(response => {
-        console.log(response);
+    .then(response => {        
         const channel = response.result.items[0];
 
         const output = `
             <ul class="collection">
                 <li class="collection__item">Title: ${channel.snippet.title}</li>
                 <li class="collection__item">ID: ${channel.id}</li>
-                <li class="collection__item">Subscribers: ${channel.statistics.subscriberCount}</li>
-                <li class="collection__item">Views: ${channel.statistics.viewCount}</li>
-                <li class="collection__item">Videos: ${channel.statistics.videoCount}</li>
+                <li class="collection__item">Subscribers: ${numberWithCommas(channel.statistics.subscriberCount)}</li>
+                <li class="collection__item">Views: ${numberWithCommas(channel.statistics.viewCount)}</li>
+                <li class="collection__item">Videos: ${numberWithCommas(channel.statistics.videoCount)}</li>
             </ul>
             <p>${channel.snippet.description}</p>
             <hr>
             <a class="button--grey" target="_blank" href="https://youtube.com/${channel.snippet.customUrl}">Visit Channel</a>
         `;
         showChannelData(output);
+
+        const playlistId = channel.contentDetails.relatedPlaylists.uploads;
+        requestVideoPlaylists(playlistId);
     })
     .catch(err => alert('No Channel By That Name'));
+}
+
+
+//Add commas to number
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+function requestVideoPlaylists(playlistId) {
+    const requestOptions = {
+        playlistId: playlistId,
+        part: 'snippet',
+        maxResults: 10, 
+    }
+
+    const request = gapi.client.youtube.playlistItems.list(requestOptions);
+
+    request.execute(response => {        
+        const playListItems = response.items;
+        if(playListItems) {            
+            let output = `<h4 class="align-center">Latest Videos</h4><div class="videos">`;
+            // Loop through videos and append output            
+            playListItems.forEach(item => {
+                const videoId = item.snippet.resourceId.videoId;
+                output += `
+                <div class="video">
+                    <iframe width="100%" height="auto" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; "picture-in-picture" allowfullscreen></iframe>
+                </div>
+                `;
+            });
+            // Output videos
+            videoContainer.innerHTML += output;
+            videoContainer.innerHTML += `</div>`;
+        }else {
+            videoContainer.innerHTML = "No Uploaded Videos";
+        }
+    });
 }

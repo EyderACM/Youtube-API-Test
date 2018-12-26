@@ -118,6 +118,16 @@ input[type="submit"] {
 	justify-self: center;
 }
 
+#video-container {
+	width: 70vw;
+}
+
+.videos {
+	display: grid;
+	grid-gap: 20px;
+	grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+}
+
 .collection > * {
 	padding: 12px;
 	margin-left: 0;
